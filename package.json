@@ -1,0 +1,29 @@
+{
+  "name": "threejs-fps-test-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --port 7978",
+    "build": "parcel build index.html",
+    "prettier": "prettier --write --no-semi --print-width 100 \"src/**/*.js\""
+  },
+  "dependencies": {
+    "d3": "5.16.0",
+    "delay": "^4.4.0",
+    "lerp": "^1.0.3",
+    "stats.js": "0.17.0",
+    "three": "0.118.3",
+    "three.meshline": "^1.2.0",
+    "topojson": "3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "parcel-bundler": "^1.6.1",
+    "prettier": "^2.0.5"
+  },
+  "keywords": [],
+  "browserslist": [
+    "since 2019-01"
+  ]
+}
