@@ -1,13 +1,14 @@
 import createMap from "./map/map"
 import * as THREE from "three"
 import lerp from "lerp"
-import {MeshLine,MeshLineMaterial} from "three.meshline"
+import { MeshLine, MeshLineMaterial } from "three.meshline"
 
 import { QuadraticBezier as QuadraticBezierInterpolation } from "three/src/extras/core/Interpolations.js"
 
 // console.log(QuadraticBezierInterpolation)
 ;(async () => {
-  const map = createMap()
+  const map = await createMap()
+  // return
 
   let particlesGeometry = new THREE.BufferGeometry()
   let particlesPositions = []
@@ -45,7 +46,7 @@ import { QuadraticBezier as QuadraticBezierInterpolation } from "three/src/extra
   const attackParticles = []
 
   for (const attack of zscalerAttacks) {
-    for (let i = 0; i < attack.count / .1; i++) {
+    for (let i = 0; i < attack.count; i++) {
       attackParticles.push(createAttackParticle({ attack }))
     }
   }
@@ -79,9 +80,8 @@ import { QuadraticBezier as QuadraticBezierInterpolation } from "three/src/extra
     particlesGeometry.attributes.position.needsUpdate = true
   })
 
-
   ;(() => {
-  	// return
+    // return
     var curve = new THREE.QuadraticBezierCurve3(
       new THREE.Vector3(-20, 0, 2),
       new THREE.Vector3(0, 15, 2),
@@ -94,19 +94,16 @@ import { QuadraticBezier as QuadraticBezierInterpolation } from "three/src/extra
     // var curveObject = new THREE.Line(geometry, material)
     // map.addMesh(curveObject)
 
-	var geometry = new THREE.Geometry()
-	for (const point of points) {
-		geometry.vertices.push(point)
-	}
-	var line = new MeshLine();
-	line.setGeometry( geometry );
-	line.setGeometry( geometry, p => .003 );
-	var material = new MeshLineMaterial({ color: 0xffffff, transparent: true, opacity: .2 });
-	var mesh = new THREE.Mesh( line.geometry, material );
-	map.addMesh(mesh)
-
-
-
+    var geometry = new THREE.Geometry()
+    for (const point of points) {
+      geometry.vertices.push(point)
+    }
+    var line = new MeshLine()
+    line.setGeometry(geometry)
+    line.setGeometry(geometry, (p) => 0.003)
+    var material = new MeshLineMaterial({ color: 0xffffff, transparent: true, opacity: 0.2 })
+    var mesh = new THREE.Mesh(line.geometry, material)
+    map.addMesh(mesh)
 
     var mesh = new THREE.Mesh(
       new THREE.BoxBufferGeometry(0.2, 0.2, 0.2),

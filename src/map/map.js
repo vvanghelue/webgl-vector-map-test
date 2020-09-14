@@ -6,18 +6,23 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader"
 import * as topojson from "topojson"
 // data
-import world from "./data/countries-50m.json"
+// import world from "./data/countries-50m.json"
 //import land10m from "./data/land-10m.json";
 import countryCodes from "./data/country-codes.json"
 import delay from "delay"
 
-export default () => {
+export default async () => {
   let camera, scene, renderer, controls
   let projection
   const updateListeners = []
 
+  const mapRawData = await (await fetch("/countries-50m.json")).json()
+  console.log(mapRawData)
+
   //console.log(world);
-  let mapData = topojson.feature(world, world.objects.countries).features
+  // let mapData = topojson.feature(world, world.objects.countries).features
+  let mapData = topojson.feature(mapRawData, mapRawData.objects.countries).features
+  console.log(mapData)
 
   function getCountryCode(alpha3) {
     return countryCodes.find((i) => i["alpha-3"] == alpha3)["country-code"]
@@ -27,7 +32,7 @@ export default () => {
   document.body.appendChild(stats.dom)
 
   async function init() {
-       // camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 100000)
+    // camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 100000)
     camera = new THREE.OrthographicCamera(
       window.innerWidth / -2,
       window.innerWidth / 2,
